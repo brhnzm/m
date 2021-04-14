@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> Title_Here </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<p> 1. Share the folder with <mark>editor permission</mark>. Otherwise, you can't move that folder to My drive. </p>
+<p> 2. FOLDER name mustn't contain any space. Replace space with underscore.</p>
+
+<pre>
+<strong>First code to run:</strong>
+
+from google.colab import drive
+drive.mount('/gdrive')
+
+<strong>Second code to run:</strong>
+
+#path that contains folder you want to copy
+%cd FOLDER_PATH_HERE 
+%cp -av MY_FOLDER MY_FOLDER_COPY
+
+</pre>
+</body>
+</html>
