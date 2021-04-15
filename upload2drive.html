@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> upload2drive</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<pre>
+<strong>First code to run:</strong>
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+<strong>Second code to run:</strong>
+
+import os
+os.chdir('Paste_Folder_Path_Here')
+!wget -c 'Download_Link_Here' --no-check-certificate
+
+</pre>
+</body>
+</html>
