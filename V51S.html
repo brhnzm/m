@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encode and Decode PIN</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    button {
+        background-color: #5c67f2;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #4a54e1;
+    }
+    input[readonly] {
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>PIN Encoder and Decoder</h2>
+    <!-- Encoding Section -->
+    <label for="pin">Enter your PIN:</label>
+    <input type="text" id="pin" name="pin"><br>
+    <label for="keyword">Enter your keyword (at least 10 unique characters):</label>
+    <input type="text" id="keyword" name="keyword"><br>
+    <button onclick="encodePin()">Encode PIN</button>
+    <label for="encodedPin">Encoded PIN (click to copy):</label>
+    <input type="text" id="encodedPin" onclick="copyToClipboard(this)" readonly><br>
+    <!-- Decoding Section -->
+    <label for="encodedPinInput">Enter encoded PIN:</label>
+    <input type="text" id="encodedPinInput" name="encodedPinInput"><br>
+    <button onclick="decodePin()">Decode PIN</button>
+    <label for="decodedPin">Decoded PIN (click to copy):</label>
+    <input type="text" id="decodedPin" onclick="copyToClipboard(this)" readonly>
+</div>
+<script>
+function encodePin() {
+    const pin = document.getElementById("pin").value;
+    const keyword = document.getElementById("keyword").value;
+    let digitToLetter = {};
+
+    // Mapping digits to keyword letters
+    for (let i = 0; i < 10; i++) {
+        digitToLetter[i.toString()] = keyword[i];
+    }
+
+    // Encoding the PIN
+    let encodedPin = '';
+    for (let digit of pin) {
+        encodedPin += digitToLetter[digit];
+    }
+
+    // Displaying the encoded PIN in the input field
+    document.getElementById("encodedPin").value = encodedPin;
+}
+
+function decodePin() {
+    const encodedPin = document.getElementById("encodedPinInput").value;
+    const keyword = document.getElementById("keyword").value;
+    let letterToDigit = {};
+
+    // Mapping keyword letters back to digits
+    for (let i = 0; i < 10; i++) {
+        letterToDigit[keyword[i]] = i.toString();
+    }
+
+    // Decoding the PIN
+    let decodedPin = '';
+    for (let letter of encodedPin) {
+        decodedPin += letterToDigit[letter];
+    }
+
+    // Displaying the decoded PIN in the input field
+    document.getElementById("decodedPin").value = decodedPin;
+}
+
+function copyToClipboard(element) {
+    element.select(); // Select the text
+    document.execCommand("copy"); // Copy the text
+    alert("Text copied to clipboard!");
+}
+</script>
+</body>
+</html>
