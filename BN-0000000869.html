@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Comparison Tool</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    input {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 8px;
+        width: 90%;
+        max-width: 400px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>
+<script>
+    function compareText() {
+        var text1 = document.getElementById("input1").value;
+        var text2 = document.getElementById("input2").value;
+        var result = document.getElementById("result");
+        var copyButton = document.getElementById("copyButton");
+
+        if (text1 === text2) {
+            result.innerHTML = "The texts match!";
+            result.style.color = "green";
+            copyButton.disabled = false;
+        } else {
+            result.innerHTML = "The texts do not match!";
+            result.style.color = "red";
+            copyButton.disabled = true;
+        }
+    }
+
+    function copyText() {
+        var text = document.getElementById("input1").value;
+        navigator.clipboard.writeText(text)
+            .then(() => alert("Text copied to clipboard!"))
+            .catch(err => alert("Failed to copy text: " + err));
+    }
+
+    function clearText() {
+        document.getElementById("input1").value = "";
+        document.getElementById("input2").value = "";
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("copyButton").disabled = true;
+    }
+</script>
+</head>
+<body>
+    <h1>Text Comparison Tool</h1>
+    <input type="text" id="input1" placeholder="Enter text here" oninput="compareText()" aria-label="First text input">
+    <input type="text" id="input2" placeholder="Enter text here" oninput="compareText()" aria-label="Second text input">
+    
+    <div class="button-group">
+        <button id="copyButton" onclick="copyText()" disabled aria-label="Copy first text">Copy</button>
+        <button onclick="clearText()" aria-label="Clear both texts">Clear</button>
+    </div>
+
+    <p id="result"></p>
+</body>
+</html>
